@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
 using SalesWebMvc.Services;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SalesWebMvcContext");
@@ -32,6 +34,16 @@ else
 {
     app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
 }
+
+var enUs = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(enUs),
+    SupportedCultures = new List<CultureInfo> { enUs },
+    SupportedUICultures = new List<CultureInfo> { enUs }
+};
+
+app.UseRequestLocalization(localizationOptions);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
