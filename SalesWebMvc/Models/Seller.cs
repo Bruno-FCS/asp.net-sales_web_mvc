@@ -26,7 +26,7 @@ namespace SalesWebMvc.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
-        public Department Department { get; set; }
+        public Department ?Department { get; set; }
 
         [Display(Name = "Department")]
         public int DepartmentId { get; set; }
